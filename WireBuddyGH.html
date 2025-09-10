@@ -1,0 +1,812 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+ /* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+} 
+
+.custom-button{
+-moz-border-radius: 9px; /* FF1+ */
+-webkit-border-radius: 9px; /* Saf3-4, iOS 1+, Android 1.5+ */
+border-radius: 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */  
+	background-color: #bb00bb;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	height: 100\%; 
+	
+}
+
+.custom-button:hover {
+	color:  #ffff00;
+	background-color:  ##a0FFFF;
+}
+
+.custom-button:active {
+color:  #ffffff;
+	background-color:  #ee88ff;
+}
+
+
+/* https://www.w3schools.com/css/css3_gradients.asp */
+#grad1 
+{
+ /* height: 200px;*/
+  background-color: #F0FFFF; /* For browsers that do not support gradients */
+  /* background-image: linear-gradient(to bottom right, rgba(230,240,255,1), rgba(255,220,255,1) );*/
+  background-image: linear-gradient(to bottom right, rgba(235,235,240,1), rgba(255,240,255,1) );
+  border-width:3px;
+  border-style:solid;
+  border-color:#287EC7;
+  padding:6px;  /* gap inside main border */
+}
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {              /* Override default CSS styles */
+  -webkit-appearance: none;
+  width: 100%;
+  height: 20px;        /*width of the lines*/
+  background: #B0E8FF; /*color of the lines*/
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  padding-bottom: 0px;
+}
+
+.slider:hover {   /* Mouse-over effects */
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #0000FF;  
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #3030FF;
+  cursor: pointer;
+}
+
+.borderexample {
+ border-width:3px;
+ border-style:solid;
+ border-color:#287EC7;
+ background: #F0FFFF; 
+ padding:1em;
+}
+
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+}
+ 
+ 
+ /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 10px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+   color: #000080;
+   font-size: 13px;
+  margin: auto;
+  padding: 10px;
+  border: 3px solid #800080;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.top, .middle, .bottom 
+{
+      border-bottom: 1px solid black;
+      padding: 0px 0px 5px 0px; //top.right,bottom, left: see https://www.w3schools.com/cssref/pr_padding.php
+}
+
+th, td 
+{
+    font-size: 12px;
+	color:rgb(0,0,120);
+	text-align: center;
+	padding-right: 4px;
+ }
+ select
+ {
+	font-size: 11px;
+	color:rgb(0,0,50);
+ }
+ 
+ 
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 3px;
+  font-size: 11px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 110px;
+  overflow: auto;
+  padding: 7px;
+  box-shadow: 0px 5px 7px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 6px 0px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+</style>
+<link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
+</head>
+<body>
+
+
+<!--<form id="grad1"> the watts/m² button dunna like form-->  
+<div id="grad1">
+<div class="top">
+<span style="margin:auto; font-family:'Courgette'; display:table;
+ letter-spacing: 1.5px; padding-bottom: 0px; font-size: 17px; color:rgb(80,0,120);">Wire Buddy V2.4 (Beta)</span>
+ </div>
+<div class="top">
+
+<input type="checkbox" id="radio_mcClaptons_ID" onclick="activateMC()">
+<span id="MultiCoreClaptonTitle"></span>
+
+
+ 
+ 
+ </td>
+ </table>
+ 
+ <table>
+
+<tr>	
+ <td>Core<br>AWG</td><td>&nbsp&nbspCores</span></td><td>&nbsp&nbspWrap<br>&nbsp&nbspAWG</td><tr>		
+<td> 
+
+<select id = "coreAWG" onchange = "calculate()" >
+<option> &nbsp24&nbsp </option>
+<option selected='selected'> &nbsp26&nbsp </option>
+<option> &nbsp27&nbsp </option>
+<option> &nbsp28&nbsp </option>
+<option> &nbsp30&nbsp </option>
+<option> &nbsp32&nbsp </option>
+<option> &nbsp34&nbsp </option>
+<option> &nbsp36&nbsp </option>
+<option> &nbsp38&nbsp </option>
+<option> &nbsp40&nbsp </option>
+</select>
+</td>
+
+
+<td>
+<label for="coreAWG">x&nbsp</label>
+<select id = "numberCores" onchange = "calculate()" >
+<option> &nbsp1 </option>
+<option selected='selected'> &nbsp2 </option>
+<option> &nbsp3 </option>
+<option> &nbsp4 </option>
+<option> &nbsp5 </option>
+<option> &nbsp6 </option>
+</select>
+</td>
+
+<td> 
+<label for="kernelAWG">+&nbsp</label>
+<select id = "kernelAWG" onchange = "calculate()" >
+<option> &nbsp&nbsp28 </option>
+<option> &nbsp&nbsp30 </option>
+<option> &nbsp&nbsp32 </option>
+<option> &nbsp&nbsp34 </option>
+<option selected='selected'> &nbsp&nbsp36 </option>
+<option> &nbsp&nbsp37 </option>
+<option> &nbsp&nbsp38 </option>
+<option> &nbsp&nbsp40 </option>
+</select>
+</td>
+
+
+</table>	
+
+
+</div>
+
+<div class="top">
+
+
+<table style= "padding: 4px 0px 0px 0px;">
+<tr><td>
+ <input type="checkbox" id="radio_flClaptons_ID" onclick="activateFlat()">
+<span id="FlatCoreClaptonTitle"></span>
+  
+ </td>
+ </table>
+ 
+ <table>
+
+<tr>	
+
+ <td>Core size</td><td>&nbsp&nbsp&nbspWrap<br>&nbsp&nbsp&nbspAWG</td><tr>
+			
+<td> 
+
+<select id = "coreWidthDropdown" onchange = "calculate()" >
+<option>26g x 18g</option>
+<option selected='selected'>0.3mm x 0.8mm</option>
+
+</select>
+</td>
+
+
+
+<td> 
+<label for="kernelAWGflatDropdown">+&nbsp</label>
+<select id = "kernelAWGflatDropdown" onchange = "calculate()" >
+<option> &nbsp&nbsp28 </option>
+<option> &nbsp&nbsp30 </option>
+<option selected='selected'> &nbsp&nbsp32 </option>
+<option> &nbsp&nbsp34 </option>
+<option> &nbsp&nbsp36 </option>
+<option> &nbsp&nbsp38 </option>
+<option> &nbsp&nbsp40 </option>
+</select>
+</td>
+
+</table>	
+
+
+
+
+</div>
+
+
+
+
+<table>
+<tr>
+
+
+
+<div style="text-align: left; font-size: 13px; padding: 6px 0px 0px 0px;" > <label for="MmPerWrap"></label>
+<span id="infoPanelLine1" name="infoPanelLine1"></span>
+</div>
+</td>
+
+
+
+<tr>
+<td style="text-align: left;  padding: 5px 0px 0px 10px; font-size: 13px;">
+<span id="infoPanelLine2"></span>
+</td>
+
+
+<tr>
+
+<td style="text-align: left;  padding: 5px 0px 0px 10px; font-size: 13px;">
+<li>For
+<label for="numberTurnsNew"></label>
+<select id = "numberTurnsNew" onchange = "calculate()" >
+<option> 3 </option>
+<option> 4 </option>
+<option> 5 </option>
+<option selected='selected'> 6 </option>
+<option> 7 </option>
+<option> 8 </option>
+<option> 9 </option>
+<option> 10 </option>
+</select> wraps & inner Ø
+<select id = "innerDiameter" onchange = "calculate()" >
+<option> 2.5mm </option>
+<option selected='selected'> 3.0mm </option>
+<option> 3.5mm </option>
+<option> 4.0mm </option>
+<option> 4.5mm </option>
+<option> 5.0mm </option>
+<option> 5.5mm </option>
+<option> 6.0mm </option>
+</select>
+</td>
+
+<tr>
+<td style="text-align: left;  padding: 5px 0px 0px 10px; font-size: 13px;">
+<span id="infoPanelLine3"> </span>
+</td>
+<tr><td style="text-align: left;  padding: 5px 0px 0px 10px; font-size: 13px;">
+<span id="infoPanelLine3b"> </span>
+
+  
+</td>
+
+<tr><td style="text-align: left;  padding: 5px 0px 0px 10px; font-size: 13px;">
+<span id="infoPanelLine3c"> </span>
+(<div class="dropdown">
+  <button onclick="wattsPerArea()" id="powerDensityButton" class="dropbtn">W</button> Watts/mm²)
+  <div id="myDropdown" class="dropdown-content">
+    <label for="NewVal" style="font-size: 13px; color:rgb(0,0,50);">&nbsp;&nbsp;Enter new value</label>
+&nbsp;&nbsp;&nbsp;<input type="text"  id="NewWattsPerMM" name="NewWattsPerMM" size="4">
+ <button id="OKButton" onclick="OkButtonClick()">OK</button> 
+  </div>
+</div>	
+
+
+</td>
+
+<tr>
+<td style="text-align: left;  padding: 5px 0px 0px 10px; font-size: 13px;">
+&nbsp;&nbsp;&nbsp;&nbsp;cut wire to
+<span id="infoPanelLine4"></span>
+
+</td>
+
+<tr>
+<td style="text-align: left; padding: 5px 0px 0px 10px; font-size: 13px;">
+<li>Maximum suggested wraps for
+</td>
+<tr>
+<td style="text-align: left; padding: 2px 0px 0px 10px; font-size: 14px;">
+<select id="tankGaps" onchange = "calculate()"> </select>
+</td>
+<tr>
+<td style="text-align: left; padding: 2px 0px 0px 10px;font-size: 13px;">
+is <span id="infoPanelLine5"></span>
+</td>
+
+</table>
+
+
+<!-- </form> -->
+<div>
+
+	
+
+
+<script>
+function OkButtonClick()
+{
+	WATTS_PER_MMSQARED = parseFloat(document.getElementById('NewWattsPerMM').value);
+	if(WATTS_PER_MMSQARED<0 || WATTS_PER_MMSQARED>1)
+	{
+		return;
+	}
+	calculate();
+	var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) 
+	  {
+        openDropdown.classList.remove('show');
+      }
+	 }
+}
+
+const MultiCoreClaptonTitle = document.getElementById('MultiCoreClaptonTitle');
+const FlatCoreClaptonTitle  = document.getElementById('FlatCoreClaptonTitle');
+//const WATTS_PER_MMSQARED = 0.37313432835820895522388059701493;
+WATTS_PER_MMSQARED = 0.343;
+<!-- https://www.javatpoint.com/oprweb/test.jsp?filename=how-to-create-dropdown-list-using-javascript1 -->
+var tankMap = new Map(), select = document.getElementById('tankGaps');
+
+tankMap.set("Arbiter 2 (7.0mm)",   		  7.0);
+tankMap.set("Arbiter Solo (4.5mm)", 	  4.5);
+tankMap.set("Berserker V2/V2 Mini (4.5mm)",4.5);
+tankMap.set("Blaze Solo V1 & V2 (6.5mm)", 6.5);
+tankMap.set("Blotto V1/Mini (7.5mm)",     7.5);
+tankMap.set("Dead Rabbit V1 (7.0mm)",     7.0);
+tankMap.set("Dead Rabbit V3 (7.5mm)", 	  7.5);
+tankMap.set("Dead Rabbit Solo (7.0mm)",   7.0);
+tankMap.set("Destiny (8.5mm)",     		  8.5);
+tankMap.set("Kylin Mini V2 (10.0mm)",    10.0);
+tankMap.set("Kylin V3 (9.5mm)",           9.5);
+tankMap.set("Merlin Mini (8.5mm)",        8.5);
+tankMap.set("Siren V2 MTL (3.5mm)",       3.5);
+tankMap.set("Steam Crave Meson (7.0mm)",  7.0);
+tankMap.set("Zeus X (7.0mm)",             7.0);
+
+
+tankMap.forEach((value, key) => {
+  select.add(new Option(key, value) )
+});
+select.selectedIndex = 6;
+
+const infoPanelLine5_display = document.getElementById('infoPanelLine5');
+//var Awg_Field =  document.getElementById("AwgField");   Awg_Field.readOnly = false;
+//var MmDiameter_Field =  document.getElementById("MmDiameterField");   //MmDiameter_Field.readOnly = true;
+var infoPanelLine1_Field =  document.getElementById("infoPanelLine1");   //infoPanelLine1_Field.readOnly = true;
+var numberCores_menu = document.getElementById("numberCores");
+var coreAWG_menu = document.getElementById("coreAWG");
+var kernelAWG_menu  = document.getElementById("kernelAWG");
+var numberTurns_menu= document.getElementById("numberTurnsNew");
+var innerDiameter_menu= document.getElementById("innerDiameter");
+
+//Awg_Field.value=32;
+//calculateAWG2MM();
+let wireWidthmm = 0;
+let wireHeightmm = 0;
+
+calculateMultiCore();
+//calcWirePhysicalAttribs();
+
+document.getElementById("OKButton")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("OKButton").click();
+    }
+});
+
+document.getElementById('NewWattsPerMM')
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("OKButton").click();
+    }
+});
+
+
+<!--END OF COMPONENT_INITITIALISERS----------------------------------------------------------------> 
+
+ /**Awg_Field.oninput = function()
+ {
+	calculateAWG2MM();
+ }
+ */
+ 
+
+//dn (mm) = 0.127 mm × 92(36-n)/39
+//D(AWG) = 0.005 * 92 ((36-AWG)/39)
+ 
+ var powerDensityBtn = document.getElementById ("powerDensityButton");
+ 
+ radio_mcClaptons_ID.checked = true;
+ radio_mcClaptons_ID.click();
+
+		
+var preString = "<span style=\"font-family:'Courgette'; letter-spacing: 1px; padding-right:50px; text-decoration: underline; font-size: 14px;"		
+function activateFlat()
+{
+		document.getElementById('radio_mcClaptons_ID').checked = false;
+		document.getElementById('radio_flClaptons_ID').checked = true;
+		var mcctStr = preString + " color:rgb(150,150,150);\">Multi-core Claptons</span>";
+		MultiCoreClaptonTitle.innerHTML = `${mcctStr}`;
+		var fcctStr = preString + " color:rgb(0,0,0);\">Flat-core Claptons</span>";
+		FlatCoreClaptonTitle.innerHTML = `${fcctStr}`;
+		coreAWG_menu.disabled = true;
+		numberCores_menu.disabled = true;
+		kernelAWG_menu.disabled = true;
+		//numberTurns_menu.disabled=true;
+		coreWidthDropdown.disabled=false;
+		kernelAWGflatDropdown.disabled=false;
+		//calculateFlatCore();
+		calculate();
+}		
+
+function activateMC()
+{
+		document.getElementById('radio_flClaptons_ID').checked = false;
+		document.getElementById('radio_mcClaptons_ID').checked = true;
+		var mcctStr = preString + " color:rgb(0,0,0);\">Multi-core Claptons</span>";
+		var fcctStr = preString + " color:rgb(150,150,150);\">Flat-core Claptons</span>";
+		MultiCoreClaptonTitle.innerHTML = `${mcctStr}`;
+		FlatCoreClaptonTitle.innerHTML  = `${fcctStr}`;
+		coreAWG_menu.disabled = false;
+		numberCores_menu.disabled = false;
+		kernelAWG_menu.disabled = false;
+		//numberTurns_menu.disabled=false;
+		coreWidthDropdown.disabled=true;
+		kernelAWGflatDropdown.disabled=true;
+		//calculateMultiCore();
+		calculate();
+}
+
+
+function onlyDigits(s) {
+s=s.trim();
+//if (s.length==0){return false;}
+  for (let i = s.length - 1; i >= 0; i--) {
+    const d = s.charCodeAt(i);
+    if (d < 48 || d > 57) {return false;}
+  }
+  return true;
+}
+
+//called by the tankgaps dropdown action
+function calculate()
+{
+	let ButtonStr = "" + WATTS_PER_MMSQARED;
+	powerDensityBtn.innerHTML=`${ButtonStr}`;
+	
+	if (radio_mcClaptons_ID.checked == true){calculateMultiCore();}
+	else {calculateFlatCore();}
+	
+	 calcWirePhysicalAttribs();
+	
+}
+
+function calculateFlatCore()
+{
+ 
+ let gaugeStr = coreWidthDropdown.options[coreWidthDropdown.selectedIndex].value;
+ let myArray = gaugeStr.split(" ");
+ let ismmCore= gaugeStr.includes("mm");
+//let word = myArray[0]; //26g or 0.3mm
+//let word = myArray[1]; //x
+//let word = myArray[2]; //18g or 0.8mm
+
+let coreWidthMm=0; let coreHeightMm=0;
+if(ismmCore)
+{
+	coreWidthMm = Math.max(parseFloat(myArray[2]), parseFloat(myArray[0]) );
+	coreHeightMm = Math.min(parseFloat(myArray[2]), parseFloat(myArray[0]));
+}
+else //core in gauge AWG
+{
+	coreWidthMm = Math.min(parseFloat(myArray[2]), parseFloat(myArray[0])); //gets the lowest gauge figure
+	coreWidthMm = (0.127 * Math.pow (92, ((36-coreWidthMm)/39))); //now properly in mm
+	
+	coreHeightMm = Math.max(parseFloat(myArray[2]), parseFloat(myArray[0]));
+	coreHeightMm = (0.127 * Math.pow (92, ((36-coreHeightMm)/39))); //now properly in mm 
+ //convert gauge to mm
+}
+
+let wrapAwg = parseFloat(kernelAWGflatDropdown.options[kernelAWGflatDropdown.selectedIndex].value);
+let wrapWidthMm = (0.127 * Math.pow (92, ((36-wrapAwg)/39))) * 2;  //total kernel wi
+wireWidthmm = coreWidthMm + wrapWidthMm;
+
+wireHeightmm = coreHeightMm + wrapWidthMm;
+ 
+let wireString = gaugeStr.replace(/m/gi, '');  //get rid of mm  /gi means global (all instance replacements) and case insensitive
+ wireString = wireString.replace(/g/gi, '');   //get rid of g
+ wireString = "(" + wireString.replace(/ /gi, '') + ")+" + parseInt(kernelAWGflatDropdown.options[kernelAWGflatDropdown.selectedIndex].value);   //get rid of space and add wrapping
+ 
+
+
+ let infoLine1Str = preString  + " color:rgb(0,0,130);\">For "+ wireString + " Flat Clapton: </span>";
+ infoPanelLine1_Field.innerHTML = `${infoLine1Str}`;
+ 
+ 
+ 
+let tankGap = parseFloat(tankGaps.options[tankGaps.selectedIndex].value);
+let recMaxWraps = (tankGap/wireWidthmm); //float
+let recMaxWrapsGapsTotalmm = tankGap - ((Math.floor(recMaxWraps))* wireWidthmm);
+
+let maxWrapsStr = "<span style=\"font-size: 15px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.floor(recMaxWraps)) + "</span> with <span style=\"font-size: 15px; font-weight: bold; color:rgb(0,0,0);\">" + recMaxWrapsGapsTotalmm.toFixed(2) + "mm </span> left for coil spacing";
+
+infoPanelLine5_display.innerHTML = `${maxWrapsStr}`;
+
+
+
+let crossSectionStr = "<li>Cross section (w x h) is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" +  wireWidthmm.toFixed(2) + " x " + wireHeightmm.toFixed(2) + "mm</span" ;
+
+infoPanelLine2.innerHTML = `${crossSectionStr}`; //(24x6)+28 clapton has 3.71mm/wrap
+
+let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+
+let totalWidth = wireWidthmm * numberWraps;
+//let noGapWidthStr = "<li>No-gap width (" + numberWraps +" wraps) is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + totalWidth.toFixed(2) + "mm" + "</span>";
+ + ((totalWidth/25.4).toFixed(4)) +  "″";
+
+let noGapWidthStr = "&nbsp;&nbsp;&nbsp;&nbsp;no-gap coil width is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + totalWidth.toFixed(2) + "mm" + "</span>";
+infoPanelLine3.innerHTML=`${noGapWidthStr}`; 
+
+//let noGapWidthStr = "wraps is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + totalWidth.toFixed(2) + "mm" + "</span>";
+//infoPanelLine3.innerHTML=`${noGapWidthStr}`; 
+
+} 
+
+function calcWirePhysicalAttribs()
+{
+
+let innerDiameter   =  parseFloat(innerDiameter_menu.options[innerDiameter_menu.selectedIndex].value);
+let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+let lengthPerWrap = (3.1415926536 * innerDiameter);
+//console.log("lengthPerWrap=" + lengthPerWrap);
+let totalWrapLength     =   (lengthPerWrap * numberWraps)+ (wireWidthmm * numberWraps);
+let totalLengthPlusLegs = totalWrapLength + 27; //27 is for legs and ff
+//console.log("totalLength=" + totalLengthPlusLegs);
+let wireLengthStr =  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + "~" + (Math.round(totalLengthPlusLegs)) + "mm" + "</span>";
+
+
+infoPanelLine4.innerHTML= `${wireLengthStr}`;
+
+let wireContactSurfaceArea = totalWrapLength * wireWidthmm;
+let innerSurfaceAreaStr = "&nbsp;&nbsp;&nbsp;&nbsp;wick contact surface area is ~" +  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.round(wireContactSurfaceArea)) +  "mm²</span" ;
+
+infoPanelLine3b.innerHTML=`${innerSurfaceAreaStr}`;
+
+
+
+//let maxWatts = 44; //wireContactSurfaceArea x WATTS_PER_MMSQARED;
+
+let maxWatts = wireContactSurfaceArea * WATTS_PER_MMSQARED;
+
+let maxWattageStr = "&nbsp;&nbsp;&nbsp;&nbsp;rec'd max  ~" +  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.round(maxWatts*10)/10) +  "W </span> ";
+
+infoPanelLine3c.innerHTML=`${maxWattageStr}`;
+}
+
+
+function calculateMultiCore() 
+{
+let numberOfCores = parseInt(numberCores_menu.options[numberCores_menu.selectedIndex].value);
+let coreAWG		  =  parseInt(coreAWG_menu.options[coreAWG_menu.selectedIndex].value);
+let kernelAwg     = parseInt(kernelAWG_menu.options[kernelAWG_menu.selectedIndex].value);
+wireWidthmm     =  ((0.127 * Math.pow (92, ((36-coreAWG)/39))) * numberOfCores)  + (2*(0.127 * Math.pow (92, ((36-kernelAwg)/39))));
+wireHeight = ((0.127 * Math.pow (92, ((36-coreAWG)/39))))  + (2*(0.127 * Math.pow (92, ((36-kernelAwg)/39))));
+//let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+
+
+let totalWidth = wireWidthmm * numberWraps;
+
+//let infoLine1Str = preString  + " color:rgb(0,0,130);\">For (" + coreAWG + "x" + numberOfCores + ")+" + kernelAwg + " Fused Clapton: </span>";
+
+let infoLine1Str = preString  + " color:rgb(0,0,130);\">For (" + coreAWG + 
+(numberOfCores>1? ("x" + numberOfCores) : "") +
+ ")+" + kernelAwg + 
+ (numberOfCores>1? (" Fused") : ("")) + 
+ " Clapton: </span>";
+
+infoPanelLine1_Field.innerHTML = `${infoLine1Str}`;
+
+let crossSectionStr = "<li>Cross section (w x h) is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" +  wireWidthmm.toFixed(2) + " x " + wireHeight.toFixed(2) + "mm</span" ;
+
+infoPanelLine2.innerHTML = `${crossSectionStr}`; //(24x6)+28 clapton has 3.71mm/wrap
+
+let noGapWidthStr = "&nbsp;&nbsp;&nbsp;&nbsp;no-gap coil width is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + totalWidth.toFixed(2) + "mm" + "</span>";
+infoPanelLine3.innerHTML=`${noGapWidthStr}`; 
+
+
+
+let tankGap = parseFloat(tankGaps.options[tankGaps.selectedIndex].value);
+let recMaxWraps = (tankGap/wireWidthmm); //float
+let recMaxWrapsGapsTotalmm = tankGap - ((Math.floor(recMaxWraps))* wireWidthmm);
+
+let maxWrapsStr = "<span style=\"font-size: 15px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.floor(recMaxWraps)) + "</span> with <span style=\"font-size: 15px; font-weight: bold; color:rgb(0,0,0);\">" + recMaxWrapsGapsTotalmm.toFixed(2) + "mm </span> left for coil spacing";
+infoPanelLine5_display.innerHTML = `${maxWrapsStr}`; //<is> 1 with 3.29mm left for coil spacing
+
+}
+
+activateMC();
+
+</script>
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function wattsPerArea() 
+{
+  document.getElementById("myDropdown").classList.toggle("show");  
+  document.getElementById('NewWattsPerMM').value = WATTS_PER_MMSQARED;
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) 
+	  {
+        //openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+ 
+</script>
+
+</body>
+</html>
