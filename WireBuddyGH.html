@@ -87,7 +87,7 @@ color:  #ffffff;
  /* height: 200px;*/
   background-color: #F0FFFF; /* For browsers that do not support gradients */
   /* background-image: linear-gradient(to bottom right, rgba(230,240,255,1), rgba(255,220,255,1) );*/
-  background-image: linear-gradient(to bottom right, rgba(235,235,240,1), rgba(255,240,255,1) );
+  background-image: linear-gradient(to bottom right, rgba(240,240,255,1), rgba(255,255,185,1) );
   border-width:3px;
   border-style:solid;
   border-color:#287EC7;
@@ -252,7 +252,7 @@ th, td
 <div id="grad1">
 <div class="top">
 <span style="margin:auto; font-family:'Courgette'; display:table;
- letter-spacing: 1.5px; padding-bottom: 0px; font-size: 17px; color:rgb(80,0,120);">Wire Buddy V2.6 (Beta)</span>
+ letter-spacing: 1.5px; padding-bottom: 0px; font-size: 17px; color:rgb(80,0,120);">Wire Buddy V2.7 (Beta)</span>
  </div>
 <div class="top">
 
@@ -365,10 +365,15 @@ th, td
 <select id = "numberTurnsNew" onchange = "calculate()" >
 <option> 3 </option>
 <option> 4 </option>
+<option> 4.5 </option>
 <option> 5 </option>
+<option> 5.5 </option>
 <option selected='selected'> 6 </option>
+<option> 6.5 </option>
 <option> 7 </option>
+<option> 7.5 </option>
 <option> 8 </option>
+<option> 8.5 </option>
 <option> 9 </option>
 <option> 10 </option>
 </select> wraps & inner Ø
@@ -649,7 +654,7 @@ let crossSectionStr = "<li>Cross section (w x h) is " + "<span style=\"font-size
 
 infoPanelLine2.innerHTML = `${crossSectionStr}`; //(24x6)+28 clapton has 3.71mm/wrap
 
-let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+let numberWraps   =  parseFloat(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
 
 let totalWidth = wireWidthmm * numberWraps;
 //let noGapWidthStr = "<li>No-gap width (" + numberWraps +" wraps) is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + totalWidth.toFixed(2) + "mm" + "</span>";
@@ -666,10 +671,10 @@ infoPanelLine3.innerHTML=`${noGapWidthStr}`;
 function calcWirePhysicalAttribs()
 {
 
-let innerDiameter   =  parseFloat(innerDiameter_menu.options[innerDiameter_menu.selectedIndex].value);
-let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+let innerDiameter  =  parseFloat(innerDiameter_menu.options[innerDiameter_menu.selectedIndex].value);
+let numberWraps   =  parseFloat(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
 let lengthPerWrap = (3.1415926536 * innerDiameter);
-//console.log("lengthPerWrap=" + lengthPerWrap);
+console.log("lengthPerWrap=" + lengthPerWrap);
 let totalWrapLength     =   (lengthPerWrap * numberWraps)+ (wireWidthmm * numberWraps);
 let totalLengthPlusLegs = totalWrapLength + 27; //27 is for legs and ff
 //console.log("totalLength=" + totalLengthPlusLegs);
@@ -718,7 +723,7 @@ else
 }
  //xxxx
 //let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
-let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+let numberWraps   =  parseFloat(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
 
 let totalWidth = wireWidthmm * numberWraps;
 
