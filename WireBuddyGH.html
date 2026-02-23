@@ -248,6 +248,7 @@ th, td
 	/* background-color: #FF0000; */
 	color: #FF0000;
 	font-size: 13px;
+	cursor: pointer;
 }
 
 </style>
@@ -684,7 +685,7 @@ let innerSurfaceAreaStr = "&nbsp;&nbsp;&nbsp;&nbsp;wick contact surface area is 
 infoPanelLine3b.innerHTML=`${innerSurfaceAreaStr}`;
 
 let maxWatts = wireContactSurfaceArea * WATTS_PER_MMSQARED;
-let maxWattageStr = "&nbsp;&nbsp;&nbsp;&nbsp;rec'd max<span title=\"Approx max Wattage per coil (i.e. double the value shown for two). Always increment Wattages gradually from lower values than shown \"class=\"has-footnote\"><a href=\"\" class=\"footnotetext\">[?]</a></span>&nbsp;~" +  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.round(maxWatts*10)/10) +  "W </span> ";
+let maxWattageStr = "&nbsp;&nbsp;&nbsp;&nbsp;rec'd max<span title=\"Approx max Wattage per coil (i.e. double the value shown for two). Always increment Wattages gradually from lower values than shown \"class=\"has-footnote\"><a class=\"footnotetext\">[?]</a></span>&nbsp;~" +  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.round(maxWatts*10)/10) +  "W </span> ";
 //<a href="selectTopic?html" class="topic">HTML 5</a>
 
 infoPanelLine3c.innerHTML=`${maxWattageStr}`;
