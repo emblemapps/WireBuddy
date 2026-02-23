@@ -243,6 +243,13 @@ th, td
 .dropdown a:hover {background-color: #ddd;}
 .show {display: block;}
 
+.footnotetext
+{
+	/* background-color: #FF0000; */
+	color: #FF0000;
+	font-size: 13px;
+}
+
 </style>
 <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet'>
 </head>
@@ -252,7 +259,7 @@ th, td
 <div id="grad1">
 <div class="top">
 <span style="margin:auto; font-family:'Courgette'; display:table;
- letter-spacing: 1.5px; padding-bottom: 0px; font-size: 17px; color:rgb(80,0,120);">Wire Buddy V2.7 (Beta)</span>
+ letter-spacing: 1.5px; padding-bottom: 0px; font-size: 17px; color:rgb(80,0,120);">Wire Buddy V2.8 (Beta)</span>
  </div>
 <div class="top">
 
@@ -532,8 +539,7 @@ document.getElementById('NewWattsPerMM')
  
  radio_mcClaptons_ID.checked = true;
  radio_mcClaptons_ID.click();
-
-		
+	
 var preString = "<span style=\"font-family:'Courgette'; letter-spacing: 1px; padding-right:50px; text-decoration: underline; font-size: 14px;"		
 function activateFlat()
 {
@@ -630,15 +636,10 @@ wireWidthmm = coreWidthMm + wrapWidthMm;
 wireHeightmm = coreHeightMm + wrapWidthMm;
  
 let wireString = gaugeStr.replace(/m/gi, '');  //get rid of mm  /gi means global (all instance replacements) and case insensitive
- wireString = wireString.replace(/g/gi, '');   //get rid of g
- wireString = "(" + wireString.replace(/ /gi, '') + ")+" + parseInt(kernelAWGflatDropdown.options[kernelAWGflatDropdown.selectedIndex].value);   //get rid of space and add wrapping
- 
-
-
- let infoLine1Str = preString  + " color:rgb(0,0,130);\">For "+ wireString + " Flat Clapton: </span>";
- infoPanelLine1_Field.innerHTML = `${infoLine1Str}`;
- 
- 
+wireString = wireString.replace(/g/gi, '');   //get rid of g
+wireString = "(" + wireString.replace(/ /gi, '') + ")+" + parseInt(kernelAWGflatDropdown.options[kernelAWGflatDropdown.selectedIndex].value);   //get rid of space and add wrapping
+let infoLine1Str = preString  + " color:rgb(0,0,130);\">For "+ wireString + " Flat Clapton: </span>";
+infoPanelLine1_Field.innerHTML = `${infoLine1Str}`;
  
 let tankGap = parseFloat(tankGaps.options[tankGaps.selectedIndex].value);
 let recMaxWraps = (tankGap/wireWidthmm); //float
@@ -647,9 +648,6 @@ let recMaxWrapsGapsTotalmm = tankGap - ((Math.floor(recMaxWraps))* wireWidthmm);
 let maxWrapsStr = "<span style=\"font-size: 15px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.floor(recMaxWraps)) + "</span> with <span style=\"font-size: 15px; font-weight: bold; color:rgb(0,0,0);\">" + recMaxWrapsGapsTotalmm.toFixed(2) + "mm </span> left for coil spacing";
 
 infoPanelLine5_display.innerHTML = `${maxWrapsStr}`;
-
-
-
 let crossSectionStr = "<li>Cross section (w x h) is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" +  wireWidthmm.toFixed(2) + " x " + wireHeightmm.toFixed(2) + "mm</span" ;
 
 infoPanelLine2.innerHTML = `${crossSectionStr}`; //(24x6)+28 clapton has 3.71mm/wrap
@@ -665,22 +663,19 @@ infoPanelLine3.innerHTML=`${noGapWidthStr}`;
 
 //let noGapWidthStr = "wraps is " + "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + totalWidth.toFixed(2) + "mm" + "</span>";
 //infoPanelLine3.innerHTML=`${noGapWidthStr}`; 
-
 } 
 
 function calcWirePhysicalAttribs()
 {
-
 let innerDiameter  =  parseFloat(innerDiameter_menu.options[innerDiameter_menu.selectedIndex].value);
 let numberWraps   =  parseFloat(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
-let lengthPerWrap = (3.1415926536 * innerDiameter);
-console.log("lengthPerWrap=" + lengthPerWrap);
+//let lengthPerWrap = (3.1415926536 * innerDiameter);
+let lengthPerWrap = Math.PI * innerDiameter;
+//console.log("lengthPerWrap=" + lengthPerWrap);
 let totalWrapLength     =   (lengthPerWrap * numberWraps)+ (wireWidthmm * numberWraps);
 let totalLengthPlusLegs = totalWrapLength + 27; //27 is for legs and ff
 //console.log("totalLength=" + totalLengthPlusLegs);
 let wireLengthStr =  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + "~" + (Math.round(totalLengthPlusLegs)) + "mm" + "</span>";
-
-
 infoPanelLine4.innerHTML= `${wireLengthStr}`;
 
 let wireContactSurfaceArea = totalWrapLength * wireWidthmm;
@@ -688,15 +683,12 @@ let innerSurfaceAreaStr = "&nbsp;&nbsp;&nbsp;&nbsp;wick contact surface area is 
 
 infoPanelLine3b.innerHTML=`${innerSurfaceAreaStr}`;
 
-
-
-//let maxWatts = 44; //wireContactSurfaceArea x WATTS_PER_MMSQARED;
-
 let maxWatts = wireContactSurfaceArea * WATTS_PER_MMSQARED;
-
-let maxWattageStr = "&nbsp;&nbsp;&nbsp;&nbsp;rec'd max  ~" +  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.round(maxWatts*10)/10) +  "W </span> ";
+let maxWattageStr = "&nbsp;&nbsp;&nbsp;&nbsp;rec'd max<span title=\"Approx max Wattage per coil (i.e. double the value shown for two). Always increment Wattages gradually from lower values than shown \"class=\"has-footnote\"><a href=\"\" class=\"footnotetext\">[?]</a></span>&nbsp;~" +  "<span style=\"font-size: 13px; font-weight: bold; color:rgb(0,0,0);\">" + (Math.round(maxWatts*10)/10) +  "W </span> ";
+//<a href="selectTopic?html" class="topic">HTML 5</a>
 
 infoPanelLine3c.innerHTML=`${maxWattageStr}`;
+
 }
 
 function calculateMultiCore() 
@@ -721,15 +713,9 @@ else
  wireHeight = ((0.127 * Math.pow (92, ((36-coreAWG)/39))))  + (2*(0.127 * Math.pow (92, ((36-kernelAwg)/39))));
  //console.log("wrap Awg=" + kernelAwg); 
 }
- //xxxx
-//let numberWraps   =  parseInt(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
+
 let numberWraps   =  parseFloat(numberTurns_menu.options[numberTurns_menu.selectedIndex].value);
-
 let totalWidth = wireWidthmm * numberWraps;
-
-//let infoLine1Str = preString  + " color:rgb(0,0,130);\">For (" + coreAWG + "x" + numberOfCores + ")+" + kernelAwg + " Fused Clapton: </span>";
-
-
 let infoLine1Str = preString  + " color:rgb(0,0,130);\">For (" + coreAWG + 
 (numberOfCores>1? ("x" + numberOfCores) : "") +
  ")+" + kernelAwg + 
